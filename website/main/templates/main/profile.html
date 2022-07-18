@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if profile.userWithProfile == user %}
+    <div class="card mt-2">
+        <div class="card-header"><strong>{{ profile.fullName }}</strong></div>
+        <div class="card-body">
+            <p>Height: {{ profile.height }} cm</p>
+            <p>Weight: {{ profile.weight }} kg</p>
+            <p>Goal: {{ profile.goal }}</p>
+        </div>
+    </div>
+
+{% else %}
+<h2>Welcome {{user.username}}!</h2>
+<h3>Please fill out the following to complete your profile:</h3>
+<form method="post">
+    {% csrf_token %}
+    <p>Your full name: {{form.fullName}}<br><br>
+    Your weight in kilos: {{form.weight}}<br><br>
+    Your height in centimeters: {{form.height}}<br><br>
+    Your goal you want to reach with training: {{form.goal}}</p><br>
+    <button type="submit" class="btn btn-success">Save Profile</button>
+</form>
+
+{% endif %}
+{% endblock %}

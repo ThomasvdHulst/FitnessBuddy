@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+
+{% block title %}New Workout{% endblock %}
+
+{% block content %}
+<div class="form-group">
+    Please enter the name of your workout:
+    <form method="post">
+    <input 
+        type="workoutname" 
+        id="workoutname" 
+        name="workoutname" 
+        placeholder= "Name Workout"
+        size="20"
+        value= "{{ currentworkout.nameWorkout }}" 
+    />
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info" name ="saveworkoutname" value="saveworkoutname" style="padding: 2px 5px">Save</button>
+    </form>
+    
+    
+</div><br/>
+
+<p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" name="addexercise" value="addexercise">Add exercise</button>
+    <button type="submit" class="btn btn-danger" name ="cancelworkout" value="cancelworkout">Cancel Workout</button>
+</form>
+</p>
+
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        {% for exercise in exercises %}
+        <div class="card mt-2">
+            <div class="card-header"><strong>{{exercise.name}}</strong></div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token%}
+                    <button class="btn btn-info float-end" type="submit" name="exercise-id" value="{{ exercise.id }}">Add Exercise</button>
+                </form>
+                <img class="image" src="{{ exercise.image.url }}" height="200px" width="200px"><br/>
+                <p>{{exercise.description}}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<ul class="list-group">
+    {% for exercise in currentExercises %}
+            <li class="list-group-item">
+                <div class="card mt-2">
+                    <div class="card-header"><strong>{{exercise.name}}</strong></div>
+                    <div class="card-body">
+                        <img class="image" src="{{ exercise.image.url }}" height="200px" width="200px"><br/>
+                        <p>{{exercise.description}}</p>
+                    </div>
+                </div>
+            </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

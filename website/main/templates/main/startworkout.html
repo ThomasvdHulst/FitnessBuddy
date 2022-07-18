@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Start Workout{% endblock %}
+
+{% block content %}
+<h1>Welcome {{user.username}}!</h1>
+<h2>What are we training today?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-info" name ="startworkout" value="startworkout">Start workout</button>
+</form>
+{% endblock %}

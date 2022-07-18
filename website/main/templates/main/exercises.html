@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Exercises{% endblock %}
+
+{% block content %}
+<br>
+<h1>These are all the exercises of this library:</h1>
+<div>
+    <form class="d-flex" method=POST action="{% url 'search_exercises' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search exercises" aria-label="Search" name="searched">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </form>
+</div>
+
+<br />
+{% for exercise in exercises %}
+    <div class="card mt-2">
+        <div class="card-header"><strong>{{exercise.name}}</strong></div>
+        <div class="card-body">
+            <img class="image" src="{{ exercise.image.url }}" height="200px" width="200px"><br/>
+            <p>{{exercise.description}}</p>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
